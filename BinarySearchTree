@@ -1,0 +1,149 @@
+import java.util.ArrayList;
+
+// Node Class 
+class Node
+{
+  int key;
+  Node left, right;
+
+  public Node(int item)
+  {
+      key = item;
+      left = right = null;
+  }
+}
+
+//Tree Class
+public class BinarySearchTree
+{
+    Node root;
+    final static int COUNT = 10;
+    ArrayList<Integer> path1 = new ArrayList<>();
+    ArrayList<Integer> path2 = new ArrayList<>();
+    
+    
+    private int findLCA(int n1, int n2) {
+    	path1.clear();
+    	path2.clear();
+		
+    	return findLCA(n1, n2, root);
+	}
+    
+    private int findLCA(int n1,int n2, Node root) {
+    	if(!findPath(n1, path1, root) || !findPath(n2,path2,root)) {
+    		System.out.println( (path1.size()>0) ? "n1 does exist in the tree" : "n1 does not exist in the tree" );
+    		System.out.println( (path2.size()>0) ? "n2 does exist in the tree" : "n2 does not exist in the tree" );
+    		return -1;
+    	}
+    	int i;
+    	for(i = 0; i<path1.size() && i<path2.size() ; i++) {
+    		if(!path1.get(i).equals(path2.get(i))) break; //The point when there is no common element b/w n1 and n2 break
+    	}
+    	
+    	return path1.get(i-1);
+    }
+    
+    private boolean findPath(int n, ArrayList<Integer> path , Node root) {
+    	if(root == null) {
+    		return false;
+    	}
+    	path.add(root.key);
+    	
+    	if(n == root.key) {
+    		return true;
+    	}
+    	
+    	if(root.left != null && findPath(n, path, root.left) ) {
+    		return true;
+    	}
+    	
+    	if(root.right != null && findPath(n, path,root.right)) {
+    		return true;
+    	}
+    	
+    	path.remove(path.size() - 1); //This removes the last entry as this does not lie in the branch b/w the root and n
+    	return false;
+    }
+    
+    
+    
+    
+    
+    public BinarySearchTree(int value){
+      root.key = value;
+    }
+    
+    public BinarySearchTree() {
+    	root = null;
+    }
+
+    static void print2DUtil(Node root, int space)  
+    {  
+        // Base case  
+        if (root == null)  
+            return;  
+      
+        // Increase distance between levels  
+        space += COUNT;  
+      
+        // Process right child first  
+        print2DUtil(root.right, space);  
+      
+        // Print current node after space  
+        // count  
+        System.out.print("\n");  
+        for (int i = COUNT; i < space; i++)  
+            System.out.print(" ");  
+        System.out.print(root.key + "\n");  
+      
+        // Process left child  
+        print2DUtil(root.left, space);  
+    }  
+      
+    // Wrapper over print2DUtil()  
+    static void print2D(Node root)  
+    {  
+        // Pass initial space count as 0  
+        print2DUtil(root, 0);  
+    }  
+    
+    public static void main(String[] args)
+    {
+    	BinarySearchTree tree = new BinarySearchTree();
+    	tree.root = new Node(5);
+    	tree.root.left = new Node(4);
+    	tree.root.left.right = new Node(3);
+    	tree.root.right = new Node(6);
+    	tree.root.right.right = new Node(7);
+    	tree.root.left.left = new Node(2);
+    	//print2D(tree.root);
+    	/*
+    	 
+               7     
+			 / 
+           6  
+		  /	
+		5
+		  \		3
+           4 /      
+			 \
+   				2
+
+                    
+
+    	 */
+    	 
+    	
+    	System.out.println("LCA of 3 and 7 is : "+ tree.findLCA(3,7));
+    	System.out.println("LCA of 2 and 4 is : "+ tree.findLCA(2,4));
+    	System.out.println("LCA of 6 and 3 is : "+ tree.findLCA(6,3));
+    	System.out.println("LCA of 2 and 3 is : "+ tree.findLCA(2,3));
+    	System.out.println("LCA of 5 and 6 is : "+ tree.findLCA(5,6));
+    	System.out.println("LCA of 5 and 5 is : "+ tree.findLCA(5,5));
+    	System.out.println("LCA of 7 and 7 is : "+ tree.findLCA(7,7));
+    	
+    }
+
+	
+}
+
