@@ -68,6 +68,16 @@ public class TestBinaryTree {
     	assertEquals("LCA of 7 and 7 is : ",7, tree.findLCA(7,7));
     	assertEquals("LCA of 4 and null entry is : ",-1, tree.findLCA(7,11));
 
+		
+		assertEquals("LCA of 3 and 7 is : ",5, tree.findLCA(3,7));
+    	assertEquals("LCA of 2 and 4 is : ",4, tree.findLCA(2,4));
+    	assertEquals("LCA of 6 and 3 is : ",5, tree.findLCA(6,3));
+    	assertEquals("LCA of 2 and 3 is : ",4, tree.findLCA(2,3));
+    	assertEquals("LCA of 5 and 6 is : ",5, tree.findLCA(5,6));
+    	assertEquals("LCA of 5 and 5 is : ",5, tree.findLCA(5,5));
+    	assertEquals("LCA of 7 and 7 is : ",7, tree.findLCA(7,7));
+    	assertEquals("LCA of 4 and null entry is : ",-1, tree.findLCA(7,11));
+
 		//fail("Not yet implemented");
 	}
 	
